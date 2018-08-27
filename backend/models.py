@@ -2,11 +2,16 @@ from django.db import models
 
 
 class Manufacturer(models.Model):
-    manufacturer_name = models.CharField(max_length=200)
+    manufacturer_name = models.CharField(max_length=200, unique=True)
+
 
 class HeatingModel(models.Model):
     model_name = models.CharField(max_length=200)
     manufacturer_name = models.ForeignKey(Manufacturer, on_delete=models.CASCADE)
+
+    def __unicode__(self):
+        return '%d' % self.model_name
+
 
 class ErrorCode(models.Model):
     error_code = models.CharField(max_length=200)

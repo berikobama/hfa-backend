@@ -1,12 +1,23 @@
-from backend.models import HeatingModel, Manufacturer
+from backend.models import HeatingModel, Manufacturer, ErrorCode
 from rest_framework import serializers
 
 
-class ErrorCodeSerializer(serializers.Serializer):
-    error_code = serializers.CharField()
-    description = serializers.CharField()
-    solution = serializers.CharField()
-    model_name  = serializers.PrimaryKeyRelatedField(queryset=HeatingModel.objects.all())
-    manufacturer_name = serializers.PrimaryKeyRelatedField(queryset=Manufacturer.objects.all())
-    inserted_date = serializers.DateField()
-    last_modified_date = serializers.DateField()
+class HeatingModelSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = HeatingModel
+        fields = '__all__'
+
+
+class ManufacturerSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Manufacturer
+        fields = '__all__'
+
+
+class ErrorCodeSerializer(serializers.ModelSerializer):
+    model_name = HeatingModelSerializer()
+    manufacturer_name = ManufacturerSerializer()
+
+    class Meta:
+        model = ErrorCode
+        fields = '__all__'
