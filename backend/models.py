@@ -13,5 +13,6 @@ class ErrorCode(models.Model):
     description = models.TextField()
     solution = models.TextField()
     model_name = models.ForeignKey(HeatingModel, on_delete=models.CASCADE)
+    manufacturer_name = models.ForeignKey(Manufacturer, on_delete=models.CASCADE)
     inserted_date = models.DateField(auto_now_add=True)
     last_modified_date = models.DateField(auto_now=True)
