@@ -1,11 +1,12 @@
 from backend.models import ErrorCode
-from rest_framework import viewsets
+from rest_framework.decorators import api_view
+from rest_framework.response import Response
 from backend.serializers import ErrorCodeSerializer
 
 
-class ErrorViewSet(viewsets.ModelViewSet):
-    """
-    API endpoint that allows users to be viewed or edited.
-    """
-    queryset = ErrorCode.objects.all()
-    serializer_class = ErrorCodeSerializer
+@api_view(['GET'])
+def error_code_list(request):
+    if request.method == 'GET':
+        queryset = ErrorCode.objects.all()
+        serializer = ErrorCodeSerializer(queryset, many=True)
+        return Response(serializer.data)

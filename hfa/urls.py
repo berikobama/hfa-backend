@@ -1,14 +1,12 @@
-from django.conf.urls import url, include
-from rest_framework import routers
+from django.conf.urls import url
 from backend import views
 from django.contrib import admin
 from django.urls import path
+from rest_framework.urlpatterns import format_suffix_patterns
 
-router = routers.DefaultRouter()
-router.register(r'errors', views.ErrorViewSet)
 
 urlpatterns = [
-    url(r'^', include(router.urls)),
+    url(r'^errors/list/$', views.error_code_list),
     path('admin/', admin.site.urls),
-    url(r'^api-auth/', include('rest_framework.urls', namespace='rest_framework'))
 ]
+urlpatterns = format_suffix_patterns(urlpatterns)
