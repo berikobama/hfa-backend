@@ -1,1 +1,1 @@
-web: gunicorn hfa-backend.wsgi
+web: gunicorn hfa.wsgi
